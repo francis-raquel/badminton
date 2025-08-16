@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('partials/header.ejs') %>
+  <title>Confirm Your Order</title>
+</head>
+<body>
+  <%- include('partials/navbar1.ejs') %>
+
+  <div class="container mt-4">
+    <h2>Confirm Your Order</h2>
+    <form action="/confirm-order" method="POST">
+
+      <!-- DATE: Auto-filled with today's date -->
+      <div class="mb-3">
+        <label for="date" class="form-label">Date:</label>
+        <input type="date" name="date" id="date" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Customer Name:</label>
+        <input type="text" name="name" id="name" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address:</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Mobile Number:</label>
+        <input type="tel" name="phone" id="phone" class="form-control" pattern="[0-9]{10,15}" required>
+        <div class="form-text">Enter numbers only</div>
+      </div>
+
+
+    <div class="mb-3">
+  <label for="amount" class="form-label">Amount to Pay:</label>
+  <input type="text" name="amount" id="amount" class="form-control" 
+         value="<%= finalAmount.toFixed(2) %>" readonly>
+</div>
+
+<div class="alert alert-info">
+  <%= discountMessage %>
+</div>
+
+
+
+<!-- ✅ Buttons aligned on same line to the right -->
+<div class="text-end mb-3">
+  <a href="/view-orders" class="btn btn-dark me-2">View Saved Orders</a>
+  <button type="submit" class="btn btn-success">Confirm Order</button>
+</div>
+</form>
+
+  <!-- JavaScript to autofill today's date -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.getElementById('date');
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      dateInput.value = today;
+    });
+  </script>
+
+  <%- include('partials/footer.ejs') %>
+</body>
+</html>

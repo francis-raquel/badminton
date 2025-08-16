@@ -1,0 +1,274 @@
+<html>
+    <head>
+        <%- include('partials/header.ejs') %>
+    </head>
+
+    <body>
+        <%- include('partials/navbar2.ejs') %>
+
+         <div class="memberplayer">
+      <h1 class="text-primary fw-bold mb-3" style="font-family: 'Segoe UI', sans-serif;">
+        Member Players Only
+      </h1>
+
+      <!-- Email and UserID in one line -->
+      <p class="text-success fs-5 fw-semibold" style="font-family: 'Segoe UI', sans-serif;">
+        Email: <%= memberplayerEmail %> &nbsp; | &nbsp; User ID: <%= userid %>
+      </p>
+
+              <p class="fs-5" style="font-family: 'Segoe UI', sans-serif;">You are now logged in. Pay yearly membership of 500Php and enjoy 10% Discount across all Products and Services.</p>
+              <p class="fs-5" style="font-family: 'Segoe UI', sans-serif;">These are popular items for the month:</p>
+           
+        <h4>Refreshing Drinks</h4>
+
+<div class="container mt-4">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/mintlemonade.jpg" alt="Mint Lemonade" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Mint Lemonade</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/cherrylemonade.jpg" alt="Cherry Lemonade" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Cherry Lemonade</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/hotChocolate.jpg" alt="Frozen Hot Chocolate" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Frozen Hot Chocolate</p>
+    </div>
+  </div>
+</div>
+
+        <h4>Hot Beverages</h4>
+            <div class="row text-center">
+            <div class="col-md-4">
+                <img src="/public/images/cappuccino.jpg" alt="Cappuccino" class="img-fluid rounded shadow mb-2" style="height: 200px; object-fit: cover;">
+                <p>Cappuccino</p>
+                </div>
+            <div class="col-md-4">
+               <img src="/public/images/greentea.jpg" alt="Green Tea" class="img-fluid rounded shadow mb-2" style="height: 200px; object-fit: cover;">
+               <p>Green Tea</p>
+            </div>
+            <div class="col-md-4">
+            <img src="/public/images/earlgreytea.jpg" alt="Earl Grey Tea" class="img-fluid rounded shadow mb-2" style="height: 200px; object-fit: cover;">
+            <p>Earl Grey Tea</p>
+            </div>
+        </div>
+            
+          
+             <h4>Savoury Treats</h4>
+<div class="container mt-4">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/noodle.jpg" alt="Spicy Noodle and Dumplings" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Spicy Noodle and Dumplings</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/fishroll.jpg" alt="Fish Roll" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Fish Roll</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/eggpastry.jpg" alt="Egg Pastry" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Egg Pastry</p>
+    </div>
+  </div>
+</div>
+
+            <h4>Gears and apparel</h4>
+<div class="container mt-4">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/badmintonbag.png" alt="Badminton Bags" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">Badminton Bags</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/shorts.jpg" alt="shorts" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">shorts</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <img src="/public/images/badmintonshoes.jpg" alt="badmintonshoes" class="img-fluid rounded shadow" style="height: 200px; object-fit: cover;">
+      <p class="mt-2 fw-semibold">badmintonshoes</p>
+    </div>
+  </div>
+</div>
+
+        </div>
+        
+    </body>    
+</html>
+<%- include('partials/header') %>
+
+<% let courts = typeof courtStatus !== 'undefined' ? courtStatus : {}; %>
+
+  <div class="container mt-5">
+  <h1 class="mb-4">🏸 Member Player Court Booking</h1>
+  <p class="lead">Please select a court. Available time slots for the next 7 days will be shown. Booked slots appear in red and are disabled.</p>
+
+      <!-- View Courts Button -->
+  <div class="mb-4 text-end">
+    <a href="/ITadmin/view-bookings" class="btn btn-info px-4 py-2 rounded-pill fw-semibold">
+       📋 VIEW VACANT COURTS
+       </a>      
+  </div>
+
+  <!-- Step 1: Court Selection -->
+  <div class="row mb-4" id="court-section">
+    <% for (let i = 1; i <= 3; i++) {
+      const court = `Court ${i}`;
+      const status = courtStatus?.[court];
+    %>
+      <div class="col-md-4 mb-2">
+        <button 
+          type="button"
+          class="btn w-100 px-4 py-2 rounded-pill fw-semibold court-btn 
+            <%= status === 'fullyBooked' ? 'btn-danger disabled' : 'btn-outline-primary' %>"
+          data-court="<%= court %>"
+          <%= status === 'fullyBooked' ? 'disabled' : '' %>>
+          <%= court %> <%= status === 'fullyBooked' ? '- Fully Booked' : '' %>
+        </button>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Step 2: Booking Form with Date + Time Slot (Auto generated) -->
+  <form action="/memberplayer/book-court" method="POST" id="booking-form" class="d-none">
+    <input type="hidden" name="court" id="selectedCourt">
+    <input type="hidden" name="date" id="selectedDate">
+    <input type="hidden" name="time" id="selectedTime">
+
+    <div id="schedule-area"></div>
+
+    <!-- Submit Buttons -->
+    <div class="text-end mt-4">
+      <a href="/" class="btn btn-warning me-2 px-4 py-2 rounded-pill">🏠 Home</a>
+      <button type="submit" class="btn btn-success px-4 py-2 rounded-pill">✅ Confirm Booking</button>
+    </div>
+  </form>
+</div>
+
+  <script>
+  const courtButtons = document.querySelectorAll('.court-btn');
+  const bookingForm = document.getElementById('booking-form');
+  const selectedCourtInput = document.getElementById('selectedCourt');
+  const selectedDateInput = document.getElementById('selectedDate');
+  const selectedTimeInput = document.getElementById('selectedTime');
+  const scheduleArea = document.getElementById('schedule-area');
+
+  const timeSlots = ['18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+  let selectedCourt = '';
+
+  courtButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedCourt = btn.dataset.court;
+      selectedCourtInput.value = selectedCourt;
+      bookingForm.classList.remove('d-none');
+      selectedDateInput.value = '';
+      selectedTimeInput.value = '';
+      scheduleArea.innerHTML = '';
+
+      fetch(`/get-weekly-schedule?court=${encodeURIComponent(selectedCourt)}`)
+        .then(res => res.json())
+        .then(data => {
+          const now = new Date();
+
+          data.forEach(day => {
+            const dateStr = day.date;
+            const bookedTimes = day.bookedTimes.map(t => t.trim());
+
+            const card = document.createElement('div');
+            card.className = 'card mb-3 shadow-sm';
+
+            const header = document.createElement('div');
+            header.className = 'card-header bg-success text-white';
+            header.innerText = dateStr;
+            card.appendChild(header);
+
+            const body = document.createElement('div');
+            body.className = 'card-body d-flex flex-wrap gap-2';
+
+            timeSlots.forEach(time => {
+              const slotDateTime = new Date(`${dateStr}T${time}`);
+              const isPast = slotDateTime < now;
+              const isBooked = bookedTimes.includes(time);
+              const isDisabled = isBooked || isPast;
+
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = `btn btn-sm rounded-pill fw-bold px-3 py-2 ${
+                isDisabled ? 'btn-danger text-white' : 'btn-outline-primary'
+              }`;
+              btn.innerText = isDisabled ? `${time} - BOOKED` : time;
+              btn.disabled = isDisabled;
+
+              if (!isDisabled) {
+                btn.addEventListener('click', () => {
+                  selectedDateInput.value = dateStr;
+                  selectedTimeInput.value = time;
+
+                  // Reset previously active
+                  document.querySelectorAll('#schedule-area button').forEach(b => b.classList.remove('active'));
+
+                  // Mark selected as active and booked
+                  btn.classList.remove('btn-outline-primary');
+                  btn.classList.add('btn-danger', 'text-white');
+                  btn.innerText = `${time} - BOOKED`;
+                  btn.disabled = true;
+                });
+              }
+
+              body.appendChild(btn);
+            });
+
+            card.appendChild(body);
+            scheduleArea.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('❌ Error fetching schedule:', error);
+          bookingForm.classList.add('d-none');
+        });
+    });
+  });
+</script>
+  
+<!-- Member Benefits Section -->
+<div class="container mt-5">
+  <h2 class="text-center text-primary fw-bold mb-4">🏸 Member Exclusive Benefits</h2>
+
+  <!-- Club Matches -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h4 class="card-title text-success">🤝 Club Matches</h4>
+      <p class="card-text">
+        Join friendly club matches exclusively for members. Improve your game, meet fellow players, and enjoy regular sparring in a competitive yet supportive environment.
+      </p>
+    </div>
+  </div>
+
+  <!-- Training Programs -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h4 class="card-title text-warning">🎓 Member Training Programs</h4>
+      <p class="card-text">
+        Access structured badminton training sessions led by certified coaches. Whether you're a beginner or experienced player, our training helps you grow.
+      </p>
+    </div>
+  </div>
+
+  <!-- Mini Tournaments -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h4 class="card-title text-danger">🏆 Monthly Mini Tournaments</h4>
+      <p class="card-text">
+        Take part in fun and challenging mini tournaments held exclusively for members. Compete for prizes and bragging rights!
+      </p>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="text-end mt-4">
+    <a href="/" class="btn btn-secondary me-2">🏠 Home</a>
+    <a href="/booking" class="btn btn-primary">📅 Book a Court</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

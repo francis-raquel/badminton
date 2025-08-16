@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+  <h1>IT Admin Panel</h1>
+  <div class="card">
+    <div class="card-body">
+      <p>Welcome, <%= adminEmail %></p>
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="/ITadmin/user-management" class="btn btn-primary">User Management</a>
+        <a href="/ITadmin/product-management" class="btn btn-primary">Product Management</a>
+        <a href="/view-orders" class="btn btn-success">View All Orders</a> <!-- ✅ New button -->
+
+        <a href="/ITadmin/view-bookings" class="btn btn-info">📅 View Bookings</a>
+
+        <a href="/logout" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+

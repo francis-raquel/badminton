@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+<div class="container mt-4">
+  <h2>📋 Booking Schedule Overview</h2>
+
+  <% const timeSlots = ['18:00','19:00','20:00','21:00','22:00','23:00']; %>
+  
+  <% for (let i = 1; i <= 3; i++) {
+    const courtName = `Court ${i}`;
+  %>
+    <div class="card my-4">
+      <div class="card-header bg-dark text-white">
+        <strong><%= courtName %></strong>
+      </div>
+      <div class="card-body">
+        <% for (let d = 0; d < 7; d++) {
+          const dateObj = new Date();
+          dateObj.setDate(dateObj.getDate() + d);
+          const dateStr = dateObj.toISOString().split('T')[0];
+        %>
+          <div class="mb-2">
+            <h6><%= dateStr %></h6>
+            <% timeSlots.forEach(slot => {
+              const isBooked = bookedTimesMap[courtName]?.[dateStr]?.includes(slot);
+            %>
+              <% if (isBooked) { %>
+                <button class="btn btn-sm btn-danger m-1" disabled><%= slot %> - BOOKED</button>
+              <% } else { %>
+                <button class="btn btn-sm btn-success m-1"><%= slot %> - Available</button>
+              <% } %>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+
+       <div style="margin-top: 30px; text-align: right;">
+       <a href="/ITadmin" style="padding: 10px 20px; margin-right: 10px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none;">← Back to ITAdmin</a>
+       <a href="/" style="padding: 10px 20px; background-color: rgb(73, 74, 74); color: white; border-radius: 5px; text-decoration: none;">🏠 Home</a>
+    </div>
+
+    </div>
+  <% } %>
+</div>
